@@ -9,6 +9,7 @@ async function bootstrap() {
     .setTitle('FBI Wanted API Proxy')
     .setDescription('API that proxies and filters data from the FBI Wanted API')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('wanted')
     .build();
 
