@@ -1,17 +1,17 @@
 // src/users/users.service.ts
+// src/users/users.service.ts
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from './prisma.service';
 
 @Injectable()
 export class UsersService {
-  public users = [
-    {
-      id: 1,
-      username: 'david',
-      password: 'pass123',
-    },
-  ];
+  constructor(private prisma: PrismaService) {}
 
   async findOne(username: string) {
-    return this.users.find((user) => user.username === username);
+    return this.prisma.user.findUnique({ where: { username } });
+  }
+
+  async create(username: string, password: string) {
+    return this.prisma.user.create({ data: { username, password } });
   }
 }

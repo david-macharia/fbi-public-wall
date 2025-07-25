@@ -15,18 +15,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-
+  app.enableCors();
   await app.listen(3000);
 
-  const redis = new Redis(); // defaults to localhost:6379
-
-  redis
-    .ping()
-    .then((res) => {
-      console.log('🔌 Redis connected:', res); // should print 'PONG'
-    })
-    .catch((err) => {
-      console.error('❌ Redis connection failed:', err.message);
-    });
+  
 }
 bootstrap();

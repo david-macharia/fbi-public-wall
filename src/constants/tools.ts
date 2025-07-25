@@ -1,3 +1,6 @@
+import * as bcrypt from 'bcrypt';
+const saltOrRounds = 10;
+
 function buildCacheKey(filters: Record<string, any>): string {
   const parts = Object.entries(filters)
     .sort(([a], [b]) => a.localeCompare(b))
@@ -6,25 +9,7 @@ function buildCacheKey(filters: Record<string, any>): string {
   return `wanted:${parts || 'all'}`;
 }
 export { buildCacheKey };
-import { CacheModuleAsyncOptions } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-store';
 
-export const RedisOptions: CacheModuleAsyncOptions = {
-  isGlobal: true,
-  useFactory: async () => {
-    const store = await redisStore({
-      socket: {
-        host: '127.0.0.1', // 🔧 Hardcoded Redis host
-        port: 6379, // 🔧 Hardcoded Redis port
-      },
-    });
-
-    return {
-      store: () => store,
-      ttl: 600, // Optional default TTL (10 minutes)
-    };
-  },
-};
 export const generateUserId = () => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let result = '';
@@ -32,4 +17,11 @@ export const generateUserId = () => {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
+};
+
+export const encryptPassword = async (password: string) => {
+  return await bcrypt.hash(password, saltOrRounds);
+};
+export const compare = async (password: string, hash: string) => {
+  return await bcrypt.compare(password, hash);
 };

@@ -1,22 +1,73 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class WantedPersonDto {
-  @ApiProperty({ description: 'Unique FBI identifier for the wanted person' })
+  @ApiProperty()
   id: string;
 
-  @ApiProperty({ description: 'Title of the wanted case or individual' })
+  @ApiProperty()
   title: string;
 
-  @ApiProperty({ description: 'Description of the case or offense' })
+  @ApiProperty()
   description: string;
 
-  @ApiProperty({ description: 'URL to the primary image', nullable: true })
+  @ApiProperty({ nullable: true })
   image: string | null;
 
-  @ApiProperty({ description: 'Field office responsible', nullable: true })
-  fieldOffice: string | null;
+  @ApiProperty({ nullable: true })
+  field_offices: string[] | null;
 
-  @ApiProperty({ description: 'Detail page URL on fbi.gov' })
+  @ApiProperty({ nullable: true })
+  aliases: string[] | null;
+
+  @ApiProperty({ nullable: true })
+  dates_of_birth_used: string[] | null;
+
+  @ApiProperty({ nullable: true })
+  place_of_birth: string | null;
+
+  @ApiProperty({ nullable: true })
+  sex: string | null;
+
+  @ApiProperty({ nullable: true })
+  race: string | null;
+
+  @ApiProperty({ nullable: true })
+  nationality: string | null;
+
+  @ApiProperty({ nullable: true })
+  scars_and_marks: string | null;
+
+  @ApiProperty({ nullable: true })
+  occupations: string[] | null;
+
+  @ApiProperty({ nullable: true })
+  ncic: string | null;
+
+  @ApiProperty({ nullable: true })
+  hair: string | null;
+
+  @ApiProperty({ nullable: true })
+  eyes: string | null;
+
+  @ApiProperty({ nullable: true })
+  height_min: number | null;
+
+  @ApiProperty({ nullable: true })
+  height_max: number | null;
+
+  @ApiProperty({ nullable: true })
+  weight_min: number | null;
+
+  @ApiProperty({ nullable: true })
+  weight_max: number | null;
+
+  @ApiProperty({ nullable: true })
+  details: string | null;
+
+  @ApiProperty({ nullable: true })
+  caution: string | null;
+
+  @ApiProperty()
   detailUrl: string;
 }
 

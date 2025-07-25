@@ -6,13 +6,19 @@ WORKDIR /app
 
 # Copy package.json and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 
 # Copy the rest of your code
 COPY . .
 
+# Generate Prisma client
+RUN npx prisma generate
+
+# Sync DB schema (no migration folder needed)
+RUN npx prisma db push
+
 # Build the app
-RUN npm run build
+RUN yarn build
 
 # Expose port
 EXPOSE 3000

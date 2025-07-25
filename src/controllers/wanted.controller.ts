@@ -1,11 +1,19 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { CacheInterceptor } from '@nestjs/cache-manager';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Throttle } from '@nestjs/throttler';
 import { FBIQueryParams, WantedListResponseDto } from 'src/dto/wanted.dto';
 import { WantedService } from 'src/services/wanted.service';
 
 @Controller('api/wanted')
 @ApiTags('wanted')
+@UseInterceptors(CacheInterceptor)
 export class WantedController {
   constructor(private readonly wantedService: WantedService) {}
   @Get()
